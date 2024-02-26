@@ -1,6 +1,6 @@
 1. Implement a webserver with /hello and /query_firestore url handlers
     in *one* of the language directories, whichever you like.
-    * /hello responds with a static web page.
+    * /hello responds with a simple web page.
     * /query_firestore executes a firestore query
       that returns one result, and responds with a web page containing the
       result. 
