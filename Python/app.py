@@ -16,11 +16,14 @@ def hello():
 
 @app.route('/query_firestore', methods=['GET', 'POST'])
 def query_firestore():    
-    # just see if you are connected to the firestore
-    testing = db.collection('testing-data')
+    testing = db.collection('testing_data')
     docs = testing.stream()
+
+    response = []
     for doc in docs:
-        print(f'{doc.id} => {doc.to_dict()}')
+        response.append(doc.to_dict())
+        
+    return jsonify(response)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
