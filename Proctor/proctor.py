@@ -12,8 +12,10 @@ def fetch_url(url):
 
 def proctor(url):
     # Fetch from www.yahoo.com to warm up HTTP stack
-    yahoo_status, yahoo_latency = fetch_url("https://www.yahoo.com/")
-    print(f"result {yahoo_status} from https://www.yahoo.com/ in {yahoo_latency}ms.")
+    start_time_yahoo = time.time()
+    yahoo_status = requests.get("https://www.yahoo.com")
+    total_latency_yahoo = int((time.time() - start_time_yahoo) * 1000)
+    print(f"result {yahoo_status.status_code} from https://www.yahoo.com/ in {total_latency_yahoo}ms.")
 
     # Fetch from the provided URL
     start_time = time.time()
@@ -32,17 +34,14 @@ if __name__ == "__main__":
 
     url = sys.argv[1]
     
-    try:
-        response = requests.get(url)
-    except requests.exceptions.RequestException as e:
-        print(f"Error: {e}")
-        sys.exit(1)
+    # call proctor function
+    status_code, response_content, total_latency = proctor(url)
     
-    if response.status_code == 200:
-        request_count = response.json()['requestCount']
+    if(status_code == 200):
+        request_count = response_content['requestCount']
         if (request_count == 1):
-            print(f"COLD_RESULT {response.status_code} {url} in {response.elapsed.microseconds}ms.")
+            print(f"COLD_RESULT {status_code} {url} in {total_latency}ms.")
         else:
-            print(f"WARM_RESULT {response.status_code} {url} in {response.elapsed.microseconds}ms.")
+            print(f"WARM_RESULT {status_code} {url} in {total_latency}ms.")
     else:
         sys.exit(1)
