@@ -31,15 +31,18 @@ if __name__ == "__main__":
         sys.exit(1)
 
     url = sys.argv[1]
-    status_code, response_content, total_latency = proctor(url)
-    if status_code == 200:
-        request_count = response_content.get('requestCount', None)
-        if request_count is not None:
-            if request_count == 1:
-                print(f"COLD_RESULT {status_code} {url} in {total_latency}ms.")
-            else:
-                print(f"warm_result {status_code} {url} in {total_latency}ms.")
+    
+    try:
+        response = requests.get(url)
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+    
+    if response.status_code == 200:
+        request_count = response.json()['requestCount']
+        if (request_count == 1):
+            print(f"COLD_RESULT {response.status_code} {url} in {response.elapsed.microseconds}ms.")
         else:
-            print("Error: 'requestCount' not found in the response.")
+            print(f"WARM_RESULT {response.status_code} {url} in {response.elapsed.microseconds}ms.")
     else:
         sys.exit(1)
