@@ -24,16 +24,21 @@ def hello():
 
 @app.route('/query_firestore', methods=['GET', 'POST'])
 def query_firestore():
+    
+    # collect the testing_data from Firestore
     global counter
     testing = db.collection('testing_data')
     docs = testing.stream()
     
+    # increments the counter everytime the url is being called
+    # to see if it is a cold start or a warm start
     counter += 1
     
     response = []
     for doc in docs:
         response.append(doc.to_dict())
         
+    # return both the response and the counter
     return jsonify({
         'docs': response,
         'requestCount': counter

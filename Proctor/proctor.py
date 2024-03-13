@@ -2,6 +2,7 @@ import requests
 import time
 import sys
 
+"""Fetches the provided URL and prints the status code and response content."""
 def fetch_url(url):
     try:
         response = requests.get(url)
@@ -10,6 +11,7 @@ def fetch_url(url):
         print(f"Error: {e}")
         sys.exit(1)
 
+"""Proctor function to measure the latency of the provided URL."""
 def proctor(url):
     # Fetch from www.yahoo.com to warm up HTTP stack
     start_time_yahoo = time.time()
