@@ -1,0 +1,11 @@
+{
+  "etag": "ACAB",
+  "bindings": [
+    {
+      "members": [
+        "user:taiga@rennieglen.com"
+      ],
+      "role": "roles/iam.serviceAccountTokenCreator"
+    }
+  ]
+}
