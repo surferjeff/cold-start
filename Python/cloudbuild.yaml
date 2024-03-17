@@ -1,0 +1,9 @@
+# Automatically triggered when a new tag like firestore-sweeper-0.03 is pushed to
+# the source repository.
+steps:
+
+# Build the docker image.
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--build-arg', 'VERSION=$TAG_NAME', '-t', 'gcr.io/$PROJECT_ID/cold-start:$TAG_NAME', '.']
+
+images: ['gcr.io/$PROJECT_ID/cold-start:$TAG_NAME']
