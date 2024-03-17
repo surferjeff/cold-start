@@ -77,7 +77,7 @@ module "python" {
     source         = "./modules/python"
     project_id     = var.project_id
     region         = var.region
-    code_repo_name = google_sourcerepo_repository.github_rennieglen_code_repo.name
+    code_repo_name = "coldstart-python"
     build_api      = google_project_service.build_api
     run_api        = google_project_service.run_api
     tag           = "coldstart_python_1.00"

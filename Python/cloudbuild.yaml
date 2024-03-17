@@ -4,6 +4,6 @@ steps:
 
 # Build the docker image.
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--build-arg', 'VERSION=$TAG_NAME', '-t', 'gcr.io/$PROJECT_ID/cold-start:$TAG_NAME', '.']
+  args: ['build', '--build-arg', 'VERSION=$TAG_NAME', '-t', 'gcr.io/$PROJECT_ID/coldstart-python:$TAG_NAME', '.']
 
-images: ['gcr.io/$PROJECT_ID/cold-start:$TAG_NAME']
+images: ['gcr.io/$PROJECT_ID/coldstart-python:$TAG_NAME']

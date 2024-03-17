@@ -23,7 +23,7 @@ resource "google_cloudbuild_trigger" "build-coldstart-python" {
     }
     project = var.project_id
 
-    # filename = "code-start/Python/cloudbuild.yaml"
+    filename = "code-start/Python/cloudbuild.yaml"
 
     depends_on = [var.build_api]
 }
@@ -35,13 +35,9 @@ resource "google_cloud_run_service" "coldstart-python" {
     location = var.region
     template {
         spec {
-            timeout_seconds = 1200
             service_account_name = google_service_account.coldstart-python.account_id
             containers {
                 image = "gcr.io/${var.project_id}/coldstart-python:${var.tag}"
-                ports {
-                    container_port = 8080
-                }
                 env {
                     name = "DRY_RUN"
                     value = "no"
