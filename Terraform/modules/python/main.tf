@@ -39,10 +39,6 @@ resource "google_cloud_run_service" "coldstart-python" {
             service_account_name = google_service_account.coldstart-python.account_id
             containers {
                 image = "gcr.io/${var.project_id}/coldstart-python:${var.tag}"
-                env {
-                    name = "DRY_RUN"
-                    value = "no"
-                }
             }
         }
 
@@ -62,4 +58,21 @@ resource "google_cloud_run_service" "coldstart-python" {
     }
 
     depends_on = [var.run_api]
+}
+
+data "google_iam_policy" "noauth" {
+    binding {
+        role = "roles/run.invoker"
+        members = [
+        "allUsers",
+        ]
+    }
+}
+
+resource "google_cloud_run_service_iam_policy" "noauth" {
+    location    = google_cloud_run_service.coldstart-python.location
+    project     = google_cloud_run_service.coldstart-python.project
+    service     = google_cloud_run_service.coldstart-python.name
+
+    policy_data = data.google_iam_policy.noauth.policy_data
 }
