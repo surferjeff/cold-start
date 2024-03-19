@@ -1,3 +1,2 @@
 bucket = "coldstart-state-tf-state"
 prefix = "static.tfstate.d"
-impersonate_service_account = "sa-coldstart-tf-state@cold-start-417102.iam.gserviceaccount.com"
