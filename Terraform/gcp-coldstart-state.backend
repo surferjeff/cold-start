@@ -1,0 +1,2 @@
+bucket = "coldstart-state-tf-state"
+prefix = "static.tfstate.d"
