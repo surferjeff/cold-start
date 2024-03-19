@@ -55,6 +55,13 @@ resource "google_project_service" "secretmanager_api" {
   disable_on_destroy = false
 }
 
+resource "google_project_service" "google_cloud_firestore_api" {
+  service = "firestore.googleapis.com"
+  project = var.project_id
+
+  disable_on_destroy = false
+}
+
 # resource "google_sourcerepo_repository" "cold_start" {
 #   name = "cold-start"
 #   project = var.project_id
