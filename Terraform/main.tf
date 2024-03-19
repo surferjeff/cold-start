@@ -55,6 +55,11 @@ resource "google_project_service" "secretmanager_api" {
   disable_on_destroy = false
 }
 
+resource "google_sourcerepo_repository" "cold_start" {
+  name = "cold-start"
+  project = var.project_id
+}
+
 ############################################
 # create global service accounts
 resource "google_service_account" "cloud_run_invoker" {
@@ -77,7 +82,7 @@ module "python" {
     source         = "./modules/python"
     project_id     = var.project_id
     region         = var.region
-    code_repo_name = "coldstart-python"
+    code_repo_name = google_sourcerepo_repository.cold_start.name
     build_api      = google_project_service.build_api
     run_api        = google_project_service.run_api
     tag           = "coldstart_python_1.00"

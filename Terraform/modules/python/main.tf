@@ -5,6 +5,7 @@ resource "google_service_account" "coldstart-python" {
     project = var.project_id
 }
 
+
 # read and write to firestore
 resource "google_project_iam_member" "coldstart-python-access" {
     project = var.project_id
@@ -29,36 +30,36 @@ resource "google_cloudbuild_trigger" "build-coldstart-python" {
 }
 
 # deploy to cloud run
-resource "google_cloud_run_service" "coldstart-python" {
-    name = "coldstart-python"
-    project = var.project_id
-    location = var.region
-    template {
-        spec {
-            service_account_name = google_service_account.coldstart-python.account_id
-            containers {
-                image = "gcr.io/${var.project_id}/coldstart-python:${var.tag}"
-                env {
-                    name = "DRY_RUN"
-                    value = "no"
-                }
-            }
-        }
+# resource "google_cloud_run_service" "coldstart-python" {
+#     name = "coldstart-python"
+#     project = var.project_id
+#     location = var.region
+#     template {
+#         spec {
+#             service_account_name = google_service_account.coldstart-python.account_id
+#             containers {
+#                 image = "gcr.io/${var.project_id}/coldstart-python:${var.tag}"
+#                 env {
+#                     name = "DRY_RUN"
+#                     value = "no"
+#                 }
+#             }
+#         }
 
-        metadata {
-            annotations = {
-                "autoscaling.knative.dev/maxScale" = 1
-            }
-            labels = {
-              "run.googleapis.com/startupProbeType" = "Default"
-            }
-        }
-    }
+#         metadata {
+#             annotations = {
+#                 "autoscaling.knative.dev/maxScale" = 1
+#             }
+#             labels = {
+#               "run.googleapis.com/startupProbeType" = "Default"
+#             }
+#         }
+#     }
 
-    traffic {
-        percent = 100
-        latest_revision = true
-    }
+#     traffic {
+#         percent = 100
+#         latest_revision = true
+#     }
 
-    depends_on = [var.run_api]
-}
+#     depends_on = [var.run_api]
+# }
