@@ -55,10 +55,10 @@ resource "google_project_service" "secretmanager_api" {
   disable_on_destroy = false
 }
 
-resource "google_sourcerepo_repository" "cold_start" {
-  name = "cold-start"
-  project = var.project_id
-}
+# resource "google_sourcerepo_repository" "cold_start" {
+#   name = "cold-start"
+#   project = var.project_id
+# }
 
 ############################################
 # create global service accounts
@@ -82,9 +82,9 @@ module "python" {
     source         = "./modules/python"
     project_id     = var.project_id
     region         = var.region
-    code_repo_name = google_sourcerepo_repository.cold_start.name
+    code_repo_name = "github_narusawa-taiga_cold-start"
     build_api      = google_project_service.build_api
     run_api        = google_project_service.run_api
-    tag           = "coldstart_python_1.00"
+    tag           = "coldstart-python-100"
 }
 

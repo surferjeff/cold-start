@@ -19,12 +19,12 @@ resource "google_cloudbuild_trigger" "build-coldstart-python" {
     description = "Trigger to build the Coldstart Python application"
     trigger_template {
         repo_name = var.code_repo_name
-        dir = "cold-start/Python"
+        dir = "Python"
         tag_name = "^coldstart-python-.*$"
     }
     project = var.project_id
 
-    filename = "code-start/Python/cloudbuild.yaml"
+    filename = "Python/cloudbuild.yaml"
 
     depends_on = [var.build_api]
 }
