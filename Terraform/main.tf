@@ -84,6 +84,7 @@ resource "google_project_iam_member" "cloud_run_invoker" {
 
 ############################################
 # instantiate modules
+# run with terraform plan -out tf.plan -var-file=gcp-coldstart-state.tfvars
 
 module "python" {
     source         = "./modules/python"
@@ -95,3 +96,12 @@ module "python" {
     tag           = "coldstart-python-102"
 }
 
+module "csharp" {
+    source         = "./modules/csharp"
+    project_id     = var.project_id
+    region         = var.region
+    code_repo_name = "github_narusawa-taiga_cold-start"
+    build_api      = google_project_service.build_api
+    run_api        = google_project_service.run_api
+    tag           = "coldstart-csharp-100"
+}
