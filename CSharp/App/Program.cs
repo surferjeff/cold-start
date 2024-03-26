@@ -3,6 +3,7 @@ using Google.Cloud.Firestore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -12,7 +13,7 @@ int counter = 0;
 
 // Everytime the user hits the /hello endpoint, the counter will increment by 1
 app.MapGet("/hello", () => {
-    counter++;
+    int newCounterValue = Interlocked.Increment(ref counter);
     return Results.Json(new {
         message = "Hello World",
         requestCount = counter
@@ -21,7 +22,7 @@ app.MapGet("/hello", () => {
 
 // /query_firestore will return the data from Firestore 
 app.MapGet("/query_firestore", async () => {
-    counter++;
+    int newCounterValue = Interlocked.Increment(ref counter);
     var firestoreData = await GetFirestoreDataAsync(db);
     return Results.Json(new {
         docs = firestoreData,
