@@ -16,7 +16,7 @@ app.MapGet("/hello", () => {
     int newCounterValue = Interlocked.Increment(ref counter);
     return Results.Json(new {
         message = "Hello World",
-        requestCount = counter
+        requestCount = newCounterValue
     });
 });
 
@@ -26,7 +26,7 @@ app.MapGet("/query_firestore", async () => {
     var firestoreData = await GetFirestoreDataAsync(db);
     return Results.Json(new {
         docs = firestoreData,
-        requestCount = counter
+        requestCount = newCounterValue
     });
 });
 
