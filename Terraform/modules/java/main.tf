@@ -18,12 +18,12 @@ resource "google_cloudbuild_trigger" "build-coldstart-java" {
     description = "Trigger to build the Coldstart Java application"
     trigger_template {
         repo_name = var.code_repo_name
-        dir = "Java/App"
+        dir = "Java/java-app"
         tag_name = "^coldstart-java-.*$"
     }
     project = var.project_id
 
-    filename = "Java/App/cloudbuild.yaml"
+    filename = "Java/java-app/cloudbuild.yaml"
 
     depends_on = [var.build_api]
 }
