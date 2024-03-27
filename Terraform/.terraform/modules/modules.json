@@ -1,1 +1,1 @@
-{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"python","Source":"./modules/python","Dir":"modules/python"},{"Key":"csharp","Source":"./modules/csharp","Dir":"modules/csharp"}]}
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"python","Source":"./modules/python","Dir":"modules/python"},{"Key":"csharp","Source":"./modules/csharp","Dir":"modules/csharp"},{"Key":"java","Source":"./modules/java","Dir":"modules/java"}]}
