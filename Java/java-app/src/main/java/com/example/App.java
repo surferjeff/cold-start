@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 public class App {
     private static int counter = 0;
     private static Firestore db;
+    private static String projectId;
 
     public static void main(String[] args) {
         // Initialize Firebase Admin SDK
@@ -40,23 +41,30 @@ public class App {
         app.get("/query_firestore", ctx -> {
             // Increment the counter
             counter++;
-
+        
             // Query Firestore
             JSONArray response = new JSONArray();
-            db.collection("testing_data").listDocuments().forEach(documentReference -> {
-                try {
-                    DocumentSnapshot documentSnapshot = documentReference.get().get();
-                    response.put(documentSnapshot.getData());
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
-            });
-
+            try {
+                db.collection("testing-data").listDocuments().forEach(documentReference -> {
+                    try {
+                        DocumentSnapshot documentSnapshot = documentReference.get().get();
+                        response.put(documentSnapshot.getData());
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                        ctx.status(500).result("Error retrieving Firestore data");
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+                ctx.status(500).result("Error querying Firestore");
+            }
+        
             // Send response
             JSONObject jsonResponse = new JSONObject();
             jsonResponse.put("counter", counter);
             jsonResponse.put("data", response);
             ctx.result(jsonResponse.toString());
         });
+        
     }
 }
