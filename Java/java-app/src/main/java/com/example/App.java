@@ -27,7 +27,7 @@ public class App {
         }
 
         // Create Javalin app
-        Javalin app = Javalin.create().start(7000);
+        Javalin app = Javalin.create().start(8080);
 
         // Define routes
         app.get("/hello", ctx -> {
