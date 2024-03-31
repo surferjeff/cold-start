@@ -14,7 +14,6 @@ import java.util.concurrent.ExecutionException;
 public class App {
     private static int counter = 0;
     private static Firestore db;
-    private static String projectId;
 
     public static void main(String[] args) {
         // Initialize Firebase Admin SDK
