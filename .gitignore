@@ -3,12 +3,4 @@ CSharp/App/obj
 cold-start.sln
 .mono
 
-Java/java-app/target/classes
-Java/java-app/target/generated-sources
-Java/java-app/targetgenerated-sources
-Java/java-app/target/lib
-Java/java-app/target/maven-archiver
-Java/java-app/target/maven-status
-Java/java-app/target/maven-status
-Java/java-app/target/surefire-reports
-Java/java-app/target/test-classes
+Java/java-app/target/
