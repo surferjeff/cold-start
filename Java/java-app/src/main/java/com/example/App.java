@@ -4,6 +4,9 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+
 import io.javalin.Javalin;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,9 +21,11 @@ public class App {
     public static void main(String[] args) {
         // Initialize Firebase Admin SDK
         try {
-            GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
-            FirestoreOptions options = FirestoreOptions.newBuilder().setCredentials(credentials).build();
-            db = options.getService();
+            FirebaseOptions options = new FirebaseOptions.Builder()
+                .setCredentials(GoogleCredentials.getApplicationDefault())
+                .build();
+            FirebaseApp.initializeApp(options);
+            db = FirestoreOptions.getDefaultInstance().getService();
         } catch (IOException e) {
             e.printStackTrace();
         }
