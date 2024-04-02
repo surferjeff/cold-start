@@ -2,3 +2,5 @@ CSharp/App/bin
 CSharp/App/obj
 cold-start.sln
 .mono
+
+Java/java-app/target/
