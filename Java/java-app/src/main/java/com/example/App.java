@@ -35,7 +35,7 @@ public class App {
         app.get("/hello", ctx -> {
             counter++;
             JSONObject jsonResponse = new JSONObject();
-            jsonResponse.put("counter", counter);
+            jsonResponse.put("requestCount", counter);
             jsonResponse.put("message", "Hello, World!");
             ctx.result(jsonResponse.toString());
         });
@@ -53,7 +53,7 @@ public class App {
         
             // Send response
             JSONObject jsonResponse = new JSONObject();
-            jsonResponse.put("counter", counter);
+            jsonResponse.put("requestCount", counter);
             jsonResponse.put("data", response);
             ctx.result(jsonResponse.toString());
         });
