@@ -1,6 +1,7 @@
 package com.example;
 
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
@@ -18,18 +19,15 @@ public class App {
     private static int counter = 0;
     private static Firestore db;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException{
         // Initialize Firebase Admin SDK
-        try {
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(GoogleCredentials.getApplicationDefault())
-                .build();
-            FirebaseApp.initializeApp(options);
-            db = FirestoreOptions.getDefaultInstance().getService();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        
+        FirebaseOptions options = new FirebaseOptions.Builder()
+            .setCredentials(GoogleCredentials.getApplicationDefault())
+            .build();
+        FirebaseApp.initializeApp(options);
+        db = FirestoreOptions.getDefaultInstance().getService();
+        
         // Create Javalin app
         Javalin app = Javalin.create().start(8080);
 
@@ -48,19 +46,9 @@ public class App {
         
             // Query Firestore
             JSONArray response = new JSONArray();
-            try {
-                db.collection("testing-data").listDocuments().forEach(documentReference -> {
-                    try {
-                        DocumentSnapshot documentSnapshot = documentReference.get().get();
-                        response.put(documentSnapshot.getData());
-                    } catch (InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
-                        ctx.status(500).result("Error retrieving Firestore data");
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-                ctx.status(500).result("Error querying Firestore");
+            for (DocumentReference docRef : db.collection("testing-data").listDocuments()) {
+                DocumentSnapshot documentSnapshot = docRef.get().get();
+                response.put(documentSnapshot.getData());
             }
         
             // Send response
