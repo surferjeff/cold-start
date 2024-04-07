@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os/exec"
+	"strings"
 	"sync"
 
 	"cloud.google.com/go/firestore"
@@ -13,9 +15,9 @@ import (
 )
 
 var (
-	counter int
+	counter         int
 	firestoreClient *firestore.Client
-	mu sync.Mutex
+	mu              sync.Mutex
 )
 
 func init() {
@@ -38,7 +40,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	mu.Unlock()
 
 	response := map[string]interface{}{
-		"message": "Hello, World!",
+		"message":      "Hello, World!",
 		"requestCount": counter,
 	}
 
@@ -71,7 +73,7 @@ func queryFirestoreHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	finalResponse := map[string]interface{}{
-		"docs": response,
+		"docs":          response,
 		"requestCount": counter,
 	}
 
@@ -80,7 +82,40 @@ func queryFirestoreHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	port := ":8080"
+	if isPortInUse(port) {
+		log.Println("Port", port, "is in use. Attempting to terminate the process using the port...")
+		if err := killProcessUsingPort(port); err != nil {
+			log.Fatalf("Failed to kill process using port %s: %v", port, err)
+		}
+		log.Println("Process using port", port, "terminated successfully")
+	}
+
 	http.HandleFunc("/hello", helloHandler)
 	http.HandleFunc("/query_firestore", queryFirestoreHandler)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+
+	log.Printf("Starting server on port %s\n", port)
+	log.Fatal(http.ListenAndServe(port, nil))
+}
+
+// isPortInUse checks if the specified port is already in use.
+func isPortInUse(port string) bool {
+	out, err := exec.Command("netstat", "-tuln").Output()
+	if err != nil {
+		log.Fatalf("Failed to execute netstat command: %v", err)
+	}
+	return strings.Contains(string(out), port)
+}
+
+// killProcessUsingPort terminates the process using the specified port.
+func killProcessUsingPort(port string) error {
+	out, err := exec.Command("lsof", "-t", "-i", port).Output()
+	if err != nil {
+		return err
+	}
+	pid := strings.TrimSpace(string(out))
+	if pid == "" {
+		return nil // No process using the port
+	}
+	return exec.Command("kill", pid).Run()
 }
