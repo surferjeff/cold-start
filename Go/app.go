@@ -15,9 +15,9 @@ import (
 )
 
 var (
-	counter         int
-	firestoreClient *firestore.Client
-	mu              sync.Mutex
+	counter         	int
+	firestoreClient 	*firestore.Client
+	mu              	sync.Mutex
 )
 
 func init() {
@@ -56,7 +56,7 @@ func queryFirestoreHandler(w http.ResponseWriter, r *http.Request) {
 	var response []map[string]interface{}
 
 	ctx := context.Background()
-	iter := firestoreClient.Collection("testing_data").Documents(ctx)
+	iter := firestoreClient.Collection("testing-data").Documents(ctx)
 	for {
 		doc, err := iter.Next()
 		if err == iterator.Done {
