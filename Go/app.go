@@ -5,8 +5,6 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"os/exec"
-	"strings"
 	"sync"
 
 	"cloud.google.com/go/firestore"
