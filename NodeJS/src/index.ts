@@ -11,12 +11,18 @@ initializeApp({
 
 const db = getFirestore();
 
+let counter = 0;
+
 // print out all the documents in the collection
 app.get("/query_firestore", async (req: Request, res: Response) => {
   try {
     const snapshot = await db.collection('testing-data').get();
     const users = snapshot.docs.map((doc: { data: () => any; }) => doc.data());
-    res.json(users);
+    counter++;
+    res.json({
+      docs: users,
+      requestCount: counter
+    });
   } catch (error) {
     console.error("Error fetching data from Firestore:", error);
     res.status(500).json({ error: "Failed to fetch data from Firestore" });
@@ -24,7 +30,11 @@ app.get("/query_firestore", async (req: Request, res: Response) => {
 });
 
 app.get("/hello", (req: Request, res: Response) => {
-  res.send("Hello World!");
+  counter++;
+  res.json({
+    message: "Hello World!",
+    requestCount: counter
+  });
 });
 
 app.listen(port, () => {
