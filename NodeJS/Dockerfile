@@ -7,6 +7,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Create the runtime image
+FROM node:20.12.2 AS runtime
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --only=production
