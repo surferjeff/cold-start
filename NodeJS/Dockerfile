@@ -9,7 +9,7 @@ RUN npm run build
 # Stage 2: Create the runtime image
 FROM node:20.12.2 AS runtime
 WORKDIR /app
-# Copy the build output to the runtime image
-COPY --from=build /app/distapp /app
+COPY --from=build /app/dist ./
+
 EXPOSE 8080
-CMD ["node", "./distapp/index.js"]
+CMD ["node", "./index.js"]
