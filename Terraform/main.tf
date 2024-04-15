@@ -133,5 +133,5 @@ module "nodejs" {
     code_repo_name = "github_narusawa-taiga_cold-start"
     build_api      = google_project_service.build_api
     run_api        = google_project_service.run_api
-    tag           = "coldstart-nodejs-113"
+    tag           = "coldstart-nodejs-114"
 }
