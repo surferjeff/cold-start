@@ -13,4 +13,4 @@ COPY --from=build /app/dist ./
 EXPOSE 8080
 
 # Command to run the application
-CMD ["node", "./dist/index.js"]
+CMD ["node", "index.js"]
