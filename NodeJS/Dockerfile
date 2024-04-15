@@ -11,8 +11,5 @@ FROM node:20.12.2 AS runtime
 WORKDIR /app
 # Copy the build output to the runtime image
 COPY --from=build /app /app
-
-# Expose the port
 EXPOSE 8080
-
-CMD ["node", "distapp/index.js"]
+CMD ["node", "app/index.js"]
