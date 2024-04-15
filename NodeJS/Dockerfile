@@ -11,7 +11,7 @@ FROM node:20.12.2 AS runtime
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --only=production
-COPY --from=builder /app/dist ./
+COPY /app/dist ./dist
 EXPOSE 8080
 
 # Command to run the application
