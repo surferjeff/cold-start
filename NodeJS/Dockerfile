@@ -1,20 +1,17 @@
-# base
-FROM node:17.9.0 AS base
+# Stage 1: Build the application
+FROM node:20.12.2 AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-
-# build
-FROM linter as builder
-WORKDIR /app
 RUN npm run build
 
-# production
-FROM node:17.9.0-alpine3.15
+# Stage 2: Create the runtime image
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --only=production
 COPY --from=builder /app/dist ./
-EXPOSE 3000
-CMD ["node", "index.js"]
+EXPOSE 8080
+
+# Command to run the application
+CMD ["node", "./dist/index.js"]

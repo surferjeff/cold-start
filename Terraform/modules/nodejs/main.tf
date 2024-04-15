@@ -18,12 +18,12 @@ resource "google_cloudbuild_trigger" "build-coldstart-nodejs" {
     description = "Trigger to build the Coldstart Node.js application"
     trigger_template {
         repo_name = var.code_repo_name
-        dir = "Nodejs"
+        dir = "NodeJS"
         tag_name = "^coldstart-nodejs-.*$"
     }
     project = var.project_id
 
-    filename = "Nodejs/cloudbuild.yaml"
+    filename = "NodeJS/cloudbuild.yaml"
 
     depends_on = [var.build_api]
 }
