@@ -29,7 +29,7 @@ public class App {
         db = FirestoreOptions.getDefaultInstance().getService();
         
         // Create Javalin app
-        Javalin app = Javalin.create().start(8080);
+        Javalin app = Javalin.create();
 
         // Define routes
         app.get("/hello", ctx -> {
@@ -58,5 +58,6 @@ public class App {
             ctx.result(jsonResponse.toString());
         });
         
+        app.start(8080);
     }
 }
