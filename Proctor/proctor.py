@@ -29,14 +29,8 @@ def proctor(url):
         return status_code, response_content, total_latency
     else:
         print(f"bad_result {status_code} {url} in {total_latency}ms.")
-
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python proctor.py <url>")
-        sys.exit(1)
-
-    url = sys.argv[1]
-    
+        
+def fetchAndLog(url):
     # call proctor function
     status_code, response_content, total_latency = proctor(url)
     
@@ -46,5 +40,12 @@ if __name__ == "__main__":
             print(f"COLD_RESULT {status_code} {url} in {total_latency}ms.")
         else:
             print(f"WARM_RESULT {status_code} {url} in {total_latency}ms.")
-    else:
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python proctor.py <url>")
         sys.exit(1)
+
+    url = sys.argv[1]
+    
+    fetchAndLog(url)
