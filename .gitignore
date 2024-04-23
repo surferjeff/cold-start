@@ -4,3 +4,6 @@ cold-start.sln
 .mono
 
 Java/java-app/target/
+
+.venv/
+__pycache__/
