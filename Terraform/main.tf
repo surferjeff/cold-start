@@ -62,6 +62,13 @@ resource "google_project_service" "google_cloud_firestore_api" {
   disable_on_destroy = false
 }
 
+resource "google_project_service" "google_logging" {
+  service = "logging.googleapis.com"
+  project = var.project_id
+
+  disable_on_destroy = false
+}
+
 # resource "google_sourcerepo_repository" "cold_start" {
 #   name = "cold-start"
 #   project = var.project_id
@@ -93,7 +100,7 @@ module "python" {
     code_repo_name = "github_narusawa-taiga_cold-start"
     build_api      = google_project_service.build_api
     run_api        = google_project_service.run_api
-    tag           = "coldstart-python-102"
+    tag           = "coldstart-python-103"
 }
 
 module "csharp" {
@@ -143,5 +150,5 @@ module "agent" {
     code_repo_name = "github_narusawa-taiga_cold-start"
     build_api      = google_project_service.build_api
     run_api        = google_project_service.run_api
-    tag           = "coldstart-agent-107"
+    tag           = "coldstart-agent-108"
 }

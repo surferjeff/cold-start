@@ -1,4 +1,5 @@
 import os
+import google.cloud.logging
 
 from flask import Flask, request, jsonify
 import proctor
@@ -25,5 +26,8 @@ def query_firestore():
     return "Done"
     
 if __name__ == '__main__':
+    client = google.cloud.logging.Client()
+    client.setup_logging()
+    
     from waitress import serve
     serve(app, host='0.0.0.0', port=8080)
