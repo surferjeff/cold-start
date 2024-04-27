@@ -1,6 +1,10 @@
 import requests
 import time
 import sys
+import logging
+
+logger = logging.getLogger("proctor")
+logger.setLevel(logging.DEBUG)
 
 def fetch_url(url):
     """Fetches the provided URL and prints the status code and response content."""
@@ -8,7 +12,7 @@ def fetch_url(url):
         response = requests.get(url)
         return response.status_code, response.json()  # Return status code and response content
     except requests.exceptions.RequestException as e:
-        print(f"Error: {e}")
+        logger.fatal(f"Error: {e}")
         sys.exit(1)
 
 def proctor(url):
@@ -18,7 +22,7 @@ def proctor(url):
     start_time_yahoo = time.time()
     yahoo_status = requests.get("https://www.yahoo.com")
     total_latency_yahoo = int((time.time() - start_time_yahoo) * 1000)
-    print(f"result {yahoo_status.status_code} from https://www.yahoo.com/ in {total_latency_yahoo}ms.")
+    logger.info(f"result {yahoo_status.status_code} from https://www.yahoo.com/ in {total_latency_yahoo}ms.")
 
     # Fetch from the provided URL
     start_time = time.time()
@@ -28,7 +32,7 @@ def proctor(url):
     if status_code == 200:
         return status_code, response_content, total_latency
     else:
-        print(f"bad_result {status_code} {url} in {total_latency}ms.")
+        logger.warning(f"bad_result {status_code} {url} in {total_latency}ms.")
         
 def fetchAndLog(url):
     # call proctor function
@@ -37,9 +41,9 @@ def fetchAndLog(url):
     if(status_code == 200):
         request_count = response_content['requestCount']
         if (request_count == 1):
-            print(f"COLD_RESULT {status_code} {url} in {total_latency}ms.")
+            logger.info(f"COLD_RESULT {status_code} {url} in {total_latency}ms.")
         else:
-            print(f"WARM_RESULT {status_code} {url} in {total_latency}ms.")
+            logger.info(f"WARM_RESULT {status_code} {url} in {total_latency}ms.")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

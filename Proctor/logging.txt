@@ -1,0 +1,17 @@
+[
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-nodejs-ktbkw3cp2a-wl.a.run.app/query_firestore in 1449ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-java-ktbkw3cp2a-wl.a.run.app/query_firestore in 6071ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-go-ktbkw3cp2a-wl.a.run.app/query_firestore in 702ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-csharp-ktbkw3cp2a-wl.a.run.app/query_firestore in 2712ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-python-ktbkw3cp2a-wl.a.run.app/query_firestore in 3674ms."
+  }
+]

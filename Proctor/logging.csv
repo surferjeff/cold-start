@@ -1,0 +1,6 @@
+COLD_RESULT,URL,Response Time
+COLD_RESULT,https://coldstart-nodejs-ktbkw3cp2a-wl.a.run.app/query_firestore,1449
+COLD_RESULT,https://coldstart-java-ktbkw3cp2a-wl.a.run.app/query_firestore,6071
+COLD_RESULT,https://coldstart-go-ktbkw3cp2a-wl.a.run.app/query_firestore,702
+COLD_RESULT,https://coldstart-csharp-ktbkw3cp2a-wl.a.run.app/query_firestore,2712
+COLD_RESULT,https://coldstart-python-ktbkw3cp2a-wl.a.run.app/query_firestore,3674
