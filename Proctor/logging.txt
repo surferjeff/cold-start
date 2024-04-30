@@ -1,5 +1,50 @@
 [
   {
+    "textPayload": "COLD_RESULT 200 https://coldstart-nodejs-ktbkw3cp2a-wl.a.run.app/query_firestore in 1472ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-java-ktbkw3cp2a-wl.a.run.app/query_firestore in 5746ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-go-ktbkw3cp2a-wl.a.run.app/query_firestore in 344ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-csharp-ktbkw3cp2a-wl.a.run.app/query_firestore in 2090ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-python-ktbkw3cp2a-wl.a.run.app/query_firestore in 1690ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-nodejs-ktbkw3cp2a-wl.a.run.app/query_firestore in 1371ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-java-ktbkw3cp2a-wl.a.run.app/query_firestore in 5886ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-go-ktbkw3cp2a-wl.a.run.app/query_firestore in 377ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-csharp-ktbkw3cp2a-wl.a.run.app/query_firestore in 1964ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-python-ktbkw3cp2a-wl.a.run.app/query_firestore in 2336ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-nodejs-ktbkw3cp2a-wl.a.run.app/query_firestore in 1348ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-java-ktbkw3cp2a-wl.a.run.app/query_firestore in 6250ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-go-ktbkw3cp2a-wl.a.run.app/query_firestore in 401ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-csharp-ktbkw3cp2a-wl.a.run.app/query_firestore in 2010ms."
+  },
+  {
+    "textPayload": "COLD_RESULT 200 https://coldstart-python-ktbkw3cp2a-wl.a.run.app/query_firestore in 1802ms."
+  },
+  {
     "textPayload": "COLD_RESULT 200 https://coldstart-nodejs-ktbkw3cp2a-wl.a.run.app/query_firestore in 1378ms."
   },
   {
