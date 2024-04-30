@@ -61,7 +61,7 @@ resource "google_cloud_scheduler_job" "coldstart-agent" {
     
     http_target {
         http_method = "GET"
-        uri = "${google_cloud_run_service.coldstart-agent.status[0].url}"
+        uri = "${google_cloud_run_service.coldstart-agent.status[0].url}/query_firestore"
 
         oidc_token {
             service_account_email = google_service_account.coldstart-agent.email
@@ -82,7 +82,7 @@ resource "google_project_service" "cloudscheduler" {
 }
 
 output "url" {
-    value = "${google_cloud_run_service.coldstart-agent.status[0].url}"
+    value = "${google_cloud_run_service.coldstart-agent.status[0].url}/query_firestore"
 }
 
 data "google_iam_policy" "noauth" {
