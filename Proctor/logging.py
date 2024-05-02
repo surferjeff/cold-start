@@ -54,7 +54,7 @@ def convert_to_csv(input_file, output_file):
                 csv_writer.writerow([language, response_time])
 
 if __name__ == "__main__":
-    input_file = 'logging.txt'
-    output_file = 'logging.csv'
+    input_file = 'loggingHello.txt'
+    output_file = 'loggingHello.csv'
     convert_to_csv(input_file, output_file)
     print("CSV file created successfully.")
