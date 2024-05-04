@@ -53,37 +53,37 @@ resource "google_cloud_run_service" "coldstart-agent" {
 }
 
 # scheduler
-resource "google_cloud_scheduler_job" "coldstart-agent" {
-    name        = "coldstart-agent"
-    description = "Scheduler to run the Coldstart Agent application every 30 minutes"
-    schedule   = "*/30 * * * *"
-    time_zone  = "America/Los_Angeles"
+# resource "google_cloud_scheduler_job" "coldstart-agent" {
+#     name        = "coldstart-agent"
+#     description = "Scheduler to run the Coldstart Agent application every 30 minutes"
+#     schedule   = "*/30 * * * *"
+#     time_zone  = "America/Los_Angeles"
     
-    http_target {
-        http_method = "GET"
-        uri = "${google_cloud_run_service.coldstart-agent.status[0].url}/query_firestore"
+#     http_target {
+#         http_method = "GET"
+#         uri = "${google_cloud_run_service.coldstart-agent.status[0].url}/hello"
 
-        oidc_token {
-            service_account_email = google_service_account.coldstart-agent.email
-        }
-    }
+#         oidc_token {
+#             service_account_email = google_service_account.coldstart-agent.email
+#         }
+#     }
 
-    project = var.project_id
-    region = var.region
+#     project = var.project_id
+#     region = var.region
 
-    depends_on = [ google_project_service.cloudscheduler ]
-}
+#     depends_on = [ google_project_service.cloudscheduler ]
+# }
 
-resource "google_project_service" "cloudscheduler" {
-    service = "cloudscheduler.googleapis.com"
-    project = var.project_id
+# resource "google_project_service" "cloudscheduler" {
+#     service = "cloudscheduler.googleapis.com"
+#     project = var.project_id
 
-    disable_on_destroy = false
-}
+#     disable_on_destroy = false
+# }
 
-output "url" {
-    value = "${google_cloud_run_service.coldstart-agent.status[0].url}/query_firestore"
-}
+# output "url" {
+#     value = "${google_cloud_run_service.coldstart-agent.status[0].url}/hello"
+# }
 
 data "google_iam_policy" "noauth" {
     binding {
