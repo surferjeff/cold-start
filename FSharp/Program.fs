@@ -67,7 +67,7 @@ let mutable count = ref 0u
 
 let helloHandler()  =
     let hello: Hello = {
-        message = "Hello";
+        message = "Hello"
         requestCount = Interlocked.Increment(count)
     }
     json hello
