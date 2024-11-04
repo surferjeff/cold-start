@@ -63,12 +63,12 @@ type Hello = {
     requestCount: uint32;
 }
 
-let mutable count = 0u
+let mutable count = ref 0u
 
 let helloHandler()  =
     let hello: Hello = {
         message = "Hello";
-        requestCount = Interlocked.Increment(ref count)
+        requestCount = Interlocked.Increment(count)
     }
     json hello
 
