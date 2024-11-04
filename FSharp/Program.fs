@@ -63,8 +63,9 @@ type Hello = {
     requestCount: uint32;
 }
 
+let mutable count = 0u
 
-let helloHandler (count: byref<uint>) =
+let helloHandler()  =
     let hello: Hello = {
         message = "Hello";
         requestCount = Interlocked.Increment(ref count)
@@ -73,12 +74,11 @@ let helloHandler (count: byref<uint>) =
 
 
 let webApp =
-    let mutable count = 0u
     choose [
         GET >=>
             choose [
                 route "/" >=> indexHandler "world"
-                route "/hello" >=> warbler (fun _ -> helloHandler &count)
+                route "/hello" >=> warbler (fun _ -> helloHandler())
                 routef "/hello/%s" indexHandler
             ]
         setStatusCode 404 >=> text "Not Found" ]
